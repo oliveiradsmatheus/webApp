@@ -1,0 +1,25 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "Primeiro webApp",
+  "keywords": [
+    "node",
+    "express",
+    "javascript",
+    "aula",
+    "bcc"
+  ],
+  "license": "ISC",
+  "author": "Matheus Oliveira da Silva",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "nodemon": "^3.1.10"
+  }
+}
