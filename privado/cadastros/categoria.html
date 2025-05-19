@@ -67,6 +67,13 @@
         <form id="formCadCliente" action="#" method="POST" class="row g-3 needs-validation m-1 p-4 border"
               novalidate>
             <div>
+                <label for="id" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" placeholder="ID da categoria" disabled>
+                <div class="invalid-feedback">
+                    Por favor, informe o nome da categoria.
+                </div>
+            </div>
+            <div>
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" placeholder="Informe o nome da categoria" required>
                 <div class="invalid-feedback">
@@ -79,7 +86,6 @@
             </div>
         </form>
         <div class="my-4" id="tabela">
-
         </div>
     </div>
 </body>

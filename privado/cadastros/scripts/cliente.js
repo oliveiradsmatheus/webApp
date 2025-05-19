@@ -82,6 +82,7 @@ function excluirCliente(cpf) {
         });
         document.getElementById(cpf).remove();
     }
+    localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
 }
 
 function alterarCliente(cpf) {
