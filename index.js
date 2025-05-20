@@ -54,25 +54,27 @@ app.post("/login", (requisicao, resposta) => {
                                 <h2 class="text-center text-dark mt-5">Bem-vindo</h2>
                                 <div class="text-center mb-5 text-dark">Faça o login</div>
                                 <div class="card my-5">
-                                    <form class="card-body cardbody-color p-lg-5" action="/login" method="post">
+                                    <div class="container my-5 px-5 w-100">
                                         <div class="text-center">
                                             <img src="/imagens/login-avatar.webp"
-                                                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                                                 width="200px" alt="profile">
+                                            class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                                            width="200px" alt="profile">
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control" id="usuario" value="${usuario}" name="usuario"
-                                                   aria-describedby="emailHelp"
-                                                   placeholder="Usuário">
-                                        </div>
-                                        <div class="mb-3">
-                                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-color px-5 mb-5 w-100">Login</button>
-                                        </div>
-                                        <div class="alert alert-danger">Usuário ou senha incorretos!</div>
-                                    </form>
+                                        <form class="p-3" action="/login" method="post">
+                                            <div class="mb-3 form-group">
+                                                <label for="usuario">Usuário</label>
+                                                <input type="text" class="form-control" id="usuario" name="usuario" value="${usuario}"   placeholder="Informe o Usuário">
+                                            </div>
+                                            <div class="mb-3 form-group">
+                                                <label for="senha">Senha</label>
+                                                <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
+                                                <small class="form-text text-muted">Nós nunca compartilhos os seus dados com
+                                                ninguém.</small>
+                                            </div>
+                                            <button type="submit" class="w-100 btn btn-primary mt-4">Entrar</button>
+                                            <div class="mt-3 alert alert-danger">Usuário ou senha incorretos!</div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

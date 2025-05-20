@@ -1,4 +1,6 @@
 const formulario = document.getElementById("formCadCliente");
+const botaoCadastro = document.getElementById("botaoCadastro");
+let modoEdicao = false;
 let listaDeClientes = [];
 
 if (localStorage.getItem("clientes"))
@@ -15,7 +17,15 @@ function manipularSubmissao(evento) {
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
         const cliente = {nome, cpf, telefone, cidade, uf, cep};
-        listaDeClientes.push(cliente);
+        if (modoEdicao) {
+            listaDeClientes = listaDeClientes.map((cli) => {
+                return cli.cpf === cpf ? cliente : cli;
+            });
+            modoEdicao = false;
+            botaoCadastro.innerText = "Cadastrar";
+            document.getElementById("cpf").disabled = false;
+        } else
+            listaDeClientes.push(cliente);
         localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
         formulario.reset();
         mostrarTabelaClientes();
@@ -64,8 +74,8 @@ function mostrarTabelaClientes() {
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
                 <td>
-                    <button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-recycle"></i></i></button>
                     <button type="button" class="btn btn-warning" onclick="alterarCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-pencil-square"></i></i></button>
+                    <button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></i></button>
                 </td>
             `
             corpo.appendChild(linha);
@@ -83,10 +93,23 @@ function excluirCliente(cpf) {
         document.getElementById(cpf).remove();
     }
     localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+    mostrarTabelaClientes();
 }
 
 function alterarCliente(cpf) {
-
+    listaDeClientes.map((cliente) => {
+        if (cliente.cpf === cpf) {
+            document.getElementById("nome").value = cliente.nome;
+            document.getElementById("cpf").value = cliente.cpf;
+            document.getElementById("cpf").disabled = true;
+            document.getElementById("telefone").value = cliente.telefone;
+            document.getElementById("cidade").value = cliente.cidade;
+            document.getElementById("uf").value = cliente.uf;
+            document.getElementById("cep").value = cliente.cep;
+            modoEdicao = true;
+            botaoCadastro.innerText = "Alterar";
+        }
+    });
 }
 
 mostrarTabelaClientes();
