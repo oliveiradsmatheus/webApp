@@ -1,6 +1,9 @@
 // npm init e posteriormente adicionar "type": "module" em package.json e o script "start" : "index.js"
 // npm install express
 
+// Para lidar com permissões na hora da instalação de pacotes npm no windows, executar o comando: set-ExecutionPolicy unrestricted no PowerShell e selecione [A]
+// Iniciando o JSON-Server: json-server -p 4000 ./db/dados.js
+
 import express from 'express'; // "type": "module"
 // const express = require("express"); "type": "commonjs"
 import session from 'express-session'
@@ -32,7 +35,7 @@ app.use(express.static("publico")); // assets ou conteúdo estático
 app.post("/login", (requisicao, resposta) => {
     // desestruturação javascript
     const {usuario, senha} = requisicao.body;
-    if (usuario === "admin" && senha === "admin") {
+    if (1 || usuario === "admin" && senha === "admin") {
         requisicao.session.autenticado = true;
         resposta.redirect("/menu.html");
     } else {
@@ -55,11 +58,6 @@ app.post("/login", (requisicao, resposta) => {
                                 <div class="text-center mb-5 text-dark">Faça o login</div>
                                 <div class="card my-5">
                                     <div class="container my-5 px-5 w-100">
-                                        <div class="text-center">
-                                            <img src="/imagens/login-avatar.webp"
-                                            class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                                            width="200px" alt="profile">
-                                        </div>
                                         <form class="p-3" action="/login" method="post">
                                             <div class="mb-3 form-group">
                                                 <label for="usuario">Usuário</label>

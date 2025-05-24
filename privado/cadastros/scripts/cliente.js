@@ -1,10 +1,11 @@
+const url = "http://localhost:4000/clientes";
+
 const formulario = document.getElementById("formCadCliente");
-const botaoCadastro = document.getElementById("botaoCadastro");
-let modoEdicao = false;
+
 let listaDeClientes = [];
 
-if (localStorage.getItem("clientes"))
-    listaDeClientes = JSON.parse(localStorage.getItem("clientes")); // Recuperando do armazenamento local
+let id = 1;
+let idAlt;
 
 formulario.onsubmit = manipularSubmissao;
 
@@ -16,19 +17,15 @@ function manipularSubmissao(evento) {
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const cliente = {nome, cpf, telefone, cidade, uf, cep};
+        const cliente = {id: id.toString(), nome, cpf, telefone, cidade, uf, cep};
         if (modoEdicao) {
-            listaDeClientes = listaDeClientes.map((cli) => {
-                return cli.cpf === cpf ? cliente : cli;
-            });
-            modoEdicao = false;
-            botaoCadastro.innerText = "Cadastrar";
+            cliente.id = idAlt.toString(); // Salvando o id como string para evitar problemas durante as verificações
+            alterarCliente(cliente);
             document.getElementById("cpf").disabled = false;
-        } else
-            listaDeClientes.push(cliente);
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+        }
+        else
+            gravarCliente(cliente);
         formulario.reset();
-        mostrarTabelaClientes();
     } else
         formulario.classList.add('was-validated');
     evento.preventDefault(); // Cancelamento do evento
@@ -51,7 +48,7 @@ function mostrarTabelaClientes() {
         const corpo = document.createElement("tbody");
         cabecalho.innerHTML = `
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">ID</th>
               <th scope="col">Nome</th>
               <th scope="col">CPF</th>
               <th scope="col">Telefone</th>
@@ -64,7 +61,7 @@ function mostrarTabelaClientes() {
         tabela.appendChild(cabecalho);
         for (let i = 0; i < listaDeClientes.length; i++) {
             const linha = document.createElement('tr');
-            linha.id = listaDeClientes[i].cpf;
+            linha.id = listaDeClientes[i].id;
             linha.innerHTML = `
                 <th scope="row">${i + 1}</th>
                 <td>${listaDeClientes[i].nome}</td>
@@ -74,8 +71,8 @@ function mostrarTabelaClientes() {
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
                 <td>
-                    <button type="button" class="btn btn-warning" onclick="alterarCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-pencil-square"></i></i></button>
-                    <button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></i></button>
+                    <button type="button" class="btn btn-warning" onclick="alterarForm('${listaDeClientes[i].id}')"><i class="bi bi-pencil-square"></i></i></button>
+                    <button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}')"><i class="bi bi-trash"></i></i></button>
                 </td>
             `
             corpo.appendChild(linha);
@@ -85,20 +82,12 @@ function mostrarTabelaClientes() {
     }
 }
 
-function excluirCliente(cpf) {
-    if (confirm("Deseja realmente excluir o cliente " + cpf + "?")) {
-        listaDeClientes = listaDeClientes.filter((cliente) => {
-            return cliente.cpf !== cpf;
-        });
-        document.getElementById(cpf).remove();
-    }
-    localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-    mostrarTabelaClientes();
-}
+const botaoCadastro = document.getElementById("botaoCadastro");
+let modoEdicao = false;
 
-function alterarCliente(cpf) {
+function alterarForm(id) {
     listaDeClientes.map((cliente) => {
-        if (cliente.cpf === cpf) {
+        if (cliente.id == id) {
             document.getElementById("nome").value = cliente.nome;
             document.getElementById("cpf").value = cliente.cpf;
             document.getElementById("cpf").disabled = true;
@@ -108,8 +97,114 @@ function alterarCliente(cpf) {
             document.getElementById("cep").value = cliente.cep;
             modoEdicao = true;
             botaoCadastro.innerText = "Alterar";
+            idAlt = id;
         }
     });
 }
 
-mostrarTabelaClientes();
+function carregarClientes() {
+    const params = {
+        method: "GET"
+    };
+
+    fetch(url, params)
+        .then((resposta) => {
+            if (resposta.ok)
+                return resposta.json();
+        })
+        .then((clientes) => {
+            listaDeClientes = clientes;
+            if (listaDeClientes.length > 0)
+                id = parseInt(listaDeClientes[listaDeClientes.length - 1].id) + 1;
+            mostrarTabelaClientes();
+        })
+        .catch((erro) => {
+            alert("Erro ao tentar recuperar clientes!")
+        });
+}
+
+function gravarCliente(cliente) {
+    const params = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cliente)
+    }
+
+    fetch(url, params)
+        .then((resposta) => {
+            if (resposta.ok)
+                return resposta.json();
+        })
+        .then((resultado) => {
+            console.log(resultado)
+            listaDeClientes.push(cliente);
+            id++;
+            mostrarTabelaClientes();
+        })
+        .catch((erro) => {
+            alert("Erro ao tentar gravar cliente!")
+        });
+}
+
+function alterarCliente(cliente) {
+    const params = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cliente)
+    }
+    fetch(url + "/" + cliente.id, params)
+        .then((resposta) => {
+            if (resposta.ok)
+                return resposta.json();
+        })
+        .then((resultado) => {
+            console.log(resultado);
+            listaDeClientes = listaDeClientes.map((cli) => {
+                return cli.id === cliente.id ? cliente : cli;
+            });
+            modoEdicao = false;
+            botaoCadastro.innerText = "Cadastrar";
+            document.getElementById("cpf").disabled = false;
+            mostrarTabelaClientes();
+        })
+        .catch((erro) => {
+            alert("Erro ao atualizar cliente!" + erro);
+        });
+}
+
+function excluirCliente(id) {
+    if (confirm("Deseja realmente excluir o cliente " + id + "?")) {
+        const params = {
+            method: "DELETE"
+        }
+
+        fetch(url + "/" + id, params)
+            .then((resposta) => {
+                if (resposta.ok)
+                    return resposta.json();
+            })
+            .then((resultado) => {
+                console.log(resultado);
+                listaDeClientes = listaDeClientes.filter((cliente) => {
+                    return cliente.id !== id;
+                });
+                document.getElementById(id).remove();
+                mostrarTabelaClientes();
+            })
+            .catch((erro) => {
+                alert("Erro ao excluir cliente!");
+            });
+    }
+}
+
+function recuperarId() {
+    if (listaDeClientes.length > 0)
+        id = listaDeClientes(listaDeClientes.length).id + 1;
+}
+
+carregarClientes();
+recuperarId()
