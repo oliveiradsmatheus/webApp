@@ -1,13 +1,23 @@
 const url = "http://localhost:4000/clientes";
 
 const formulario = document.getElementById("formCadCliente");
+const botaoCadastro = document.getElementById("botaoCadastro");
+const botaoLimpar = document.getElementById("botaoLimpar");
 
 let listaDeClientes = [];
 
 let id = 1;
 let idAlt;
+let modoEdicao = false;
 
 formulario.onsubmit = manipularSubmissao;
+botaoLimpar.onclick = limparForm;
+
+function limparForm() {
+    modoEdicao = false;
+    formulario.reset();
+    botaoCadastro.innerText = "Cadastrar";
+}
 
 function manipularSubmissao(evento) {
     if (formulario.checkValidity()) {
@@ -21,9 +31,7 @@ function manipularSubmissao(evento) {
         if (modoEdicao) {
             cliente.id = idAlt.toString(); // Salvando o id como string para evitar problemas durante as verificações
             alterarCliente(cliente);
-            document.getElementById("cpf").disabled = false;
-        }
-        else
+        } else
             gravarCliente(cliente);
         formulario.reset();
     } else
@@ -48,14 +56,15 @@ function mostrarTabelaClientes() {
         const corpo = document.createElement("tbody");
         cabecalho.innerHTML = `
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th scope="col">CPF</th>
-              <th scope="col">Telefone</th>
-              <th scope="col">Cidade</th>
-              <th scope="col">UF</th>
-              <th scope="col">CEP</th>
-              <th scope="col">Ações</th>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">UF</th>
+                <th scope="col">CEP</th>
+                <th scope="col">Ações</th>
             </tr>
         `;
         tabela.appendChild(cabecalho);
@@ -64,6 +73,7 @@ function mostrarTabelaClientes() {
             linha.id = listaDeClientes[i].id;
             linha.innerHTML = `
                 <th scope="row">${i + 1}</th>
+                <td>${listaDeClientes[i].id}</td>
                 <td>${listaDeClientes[i].nome}</td>
                 <td>${listaDeClientes[i].cpf}</td>
                 <td>${listaDeClientes[i].telefone}</td>
@@ -82,12 +92,10 @@ function mostrarTabelaClientes() {
     }
 }
 
-const botaoCadastro = document.getElementById("botaoCadastro");
-let modoEdicao = false;
-
 function alterarForm(id) {
     listaDeClientes.map((cliente) => {
-        if (cliente.id == id) {
+        if (cliente.id === id) {
+            document.getElementById("id").value = cliente.id;
             document.getElementById("nome").value = cliente.nome;
             document.getElementById("cpf").value = cliente.cpf;
             document.getElementById("cpf").disabled = true;
@@ -201,10 +209,4 @@ function excluirCliente(id) {
     }
 }
 
-function recuperarId() {
-    if (listaDeClientes.length > 0)
-        id = listaDeClientes(listaDeClientes.length).id + 1;
-}
-
 carregarClientes();
-recuperarId()

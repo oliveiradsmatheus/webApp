@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body class="bg-dark">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/menu.html">SGP</a>
@@ -60,41 +60,45 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="alert alert-secondary text-center my-4" role="alert">
+    <div class="container bg-body-tertiary rounded my-3 p-3">
+        <div class="alert alert-primary text-center" role="alert">
             <h1>Cadastro de Fornecedores</h1>
         </div>
-        <form id="formCadCliente" action="#" method="POST" class="row g-3 needs-validation m-1 p-4 border"
+        <form id="formCadFornecedor" method="POST" class="row g-3 needs-validation m-1 p-4 border"
               novalidate>
             <div class="col-md-4">
+                <label for="nome" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" value="0" disabled>
+            </div>
+            <div class="col-md-8">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Informe o nome do cliente" required>
+                <input type="text" class="form-control" id="nome" placeholder="Informe o nome do fornecedor" required>
                 <div class="invalid-feedback">
-                    Por favor, informe o nome do cliente.
+                    Por favor, informe o nome do fornecedor.
                 </div>
             </div>
-            <div class="col-md-4">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" placeholder="Informe o CPF do cliente" required>
+            <div class="col-md-6">
+                <label for="cnpj" class="form-label">CNPJ</label>
+                <input type="text" class="form-control" id="cnpj" placeholder="Informe o CNPJ do fornecedor" required>
                 <div class="invalid-feedback">
-                    Por favor, informe o CPF do cliente.
+                    Por favor, informe o CPF do fornecedor.
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="telefone" class="form-label">Telefone</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">&#128222</span>
                     <input type="text" class="form-control" id="telefone"
-                           aria-describedby="inputGroupPrepend" placeholder="Informe o telefone do cliente"
+                           aria-describedby="inputGroupPrepend" placeholder="Informe o telefone do fornecedor"
                            required>
                     <div class="invalid-feedback">
-                        Por favor, informe o telefone do cliente.
+                        Por favor, informe o telefone do fornecedor.
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="cidade" class="form-label">Cidade</label>
-                <input type="text" class="form-control" id="cidade" placeholder="Informe a cidade do cliente"
+                <input type="text" class="form-control" id="cidade" placeholder="Informe a cidade do fornecedor"
                        required>
                 <div class="invalid-feedback">
                     Por favor, informe uma cidade.
@@ -139,13 +143,14 @@
             </div>
             <div class="col-md-3">
                 <label for="cep" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="cep" placeholder="Informe o Cep do cliente" required>
+                <input type="text" class="form-control" id="cep" placeholder="Informe o Cep do fornecedor" required>
                 <div class="invalid-feedback">
                     Por favor, informe um CEP.
                 </div>
             </div>
             <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                <button class="btn btn-primary" id="botaoCadastro" type="submit">Cadastrar</button>
+                <button class="btn btn-danger" id="botaoLimpar" type="reset">Limpar Formulário</button>
                 <a class="btn btn-secondary" type="button" href="../../index.html">Voltar</a>
             </div>
         </form>
@@ -156,6 +161,6 @@
 </body>
 
 <script src="/scripts/bootstrap.bundle.min.js"></script>
-<script src="scripts/cliente.js"></script>
+<script src="scripts/fornecedor.js"></script>
 
 </html>

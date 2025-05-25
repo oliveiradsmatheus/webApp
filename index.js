@@ -42,43 +42,41 @@ app.post("/login", (requisicao, resposta) => {
         let conteudo = `
             <!DOCTYPE html>
             <html lang="pt-br">
-    
-                <head>
+            
+            <head>
                 <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Login</title>
                 <link rel="stylesheet" href="css/bootstrap.min.css">
                 <link rel="stylesheet" href="css/login.css">
-                </head>
-    
-                <body>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 offset-md-3">
-                                <h2 class="text-center text-dark mt-5">Bem-vindo</h2>
-                                <div class="text-center mb-5 text-dark">Faça o login</div>
-                                <div class="card my-5">
-                                    <div class="container my-5 px-5 w-100">
-                                        <form class="p-3" action="/login" method="post">
-                                            <div class="mb-3 form-group">
-                                                <label for="usuario">Usuário</label>
-                                                <input type="text" class="form-control" id="usuario" name="usuario" value="${usuario}"   placeholder="Informe o Usuário">
-                                            </div>
-                                            <div class="mb-3 form-group">
-                                                <label for="senha">Senha</label>
-                                                <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
-                                                <small class="form-text text-muted">Nós nunca compartilhos os seus dados com
-                                                ninguém.</small>
-                                            </div>
-                                            <button type="submit" class="w-100 btn btn-primary mt-4">Entrar</button>
-                                            <div class="mt-3 alert alert-danger">Usuário ou senha incorretos!</div>
-                                        </form>
-                                    </div>
+            </head>
+            
+            <body class="bg-dark">
+                <div class="container bg-body-tertiary rounded my-5 p-3 w-50">
+                    <h1 class="text-center text-dark">Bem-vindo</h1>
+                    <div class="text-center text-dark">Faça o login</div>
+                    <div class="border card shadow my-3">
+                        <div class="container my-5 px-5 w-100">
+                            <form class="p-3" action="/login" method="post">
+                                <div class="mb-3 form-group">
+                                    <label for="usuario">Usuário</label>
+                                    <input type="text" class="form-control" id="usuario" name="usuario" value="${usuario}"
+                                           placeholder="Informe o Usuário">
                                 </div>
-                            </div>
+                                <div class="mb-3 form-group">
+                                    <label for="senha">Senha</label>
+                                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
+                                    <small class="form-text text-muted">Nós nunca compartilhos os seus dados com
+                                        ninguém.</small>
+                                </div>
+                                <button type="submit" class="w-100 btn btn-primary mt-4">Entrar</button>
+                                <div class="mt-3 alert alert-danger">Usuário ou senha incorretos!</div>
+                            </form>
                         </div>
                     </div>
-                </body>
-    
+                </div>
+            </body>
+            
             </html>
         `;
         resposta.send(conteudo);

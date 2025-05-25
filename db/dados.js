@@ -55,13 +55,31 @@
   ],
   "fornecedores": [
     {
-      "id": "25fe"
+      "id": "1",
+      "nome": "Fábrica Matão",
+      "cnpj": "33.333.333/0001-33",
+      "telefone": "(18)9222-2222",
+      "cidade": "Regente Feijó",
+      "uf": "SP",
+      "cep": "19015-010"
     },
     {
-      "id": "21ff"
+      "id": "2",
+      "nome": "Farmácia Santa Catarina",
+      "cnpj": "11.111.111/0001-11",
+      "telefone": "(18)9525-5958",
+      "cidade": "Presidente Prudente",
+      "uf": "SP",
+      "cep": "19045-410"
     },
     {
-      "id": "7df2"
+      "id": "3",
+      "nome": "Biscoitos Liane",
+      "cnpj": "22.222.222/0001-22",
+      "telefone": "(18)8888-8888",
+      "cidade": "Presidente Prudente",
+      "uf": "SP",
+      "cep": "19570-000"
     }
   ],
   "produtos": [
