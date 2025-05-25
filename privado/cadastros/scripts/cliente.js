@@ -164,7 +164,7 @@ function alterarCliente(cliente) {
         },
         body: JSON.stringify(cliente)
     }
-    fetch(url + "/" + cliente.id, params)
+    fetch(url + `/${cliente.id}`, params)
         .then((resposta) => {
             if (resposta.ok)
                 return resposta.json();
@@ -185,12 +185,12 @@ function alterarCliente(cliente) {
 }
 
 function excluirCliente(id) {
-    if (confirm("Deseja realmente excluir o cliente " + id + "?")) {
+    if (confirm(`Deseja realmente excluir o cliente ${id}?`)) {
         const params = {
             method: "DELETE"
         }
 
-        fetch(url + "/" + id, params)
+        fetch(url + `/${id}`, params)
             .then((resposta) => {
                 if (resposta.ok)
                     return resposta.json();

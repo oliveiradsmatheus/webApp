@@ -67,11 +67,12 @@ function mostrarTabelaFornecedores() {
             </tr>
         `;
         tabela.appendChild(cabecalho);
+        let i = 1;
         for (let fornecedor of listaDeFornecedores) {
             const linha = document.createElement("tr");
             linha.id = fornecedor.id;
             linha.innerHTML = `
-                <th scope="row">#</th>
+                <th scope="row">${i++}</th>
                 <td>${fornecedor.id}</td>
                 <td>${fornecedor.nome}</td>
                 <td>${fornecedor.cnpj}</td>
@@ -165,7 +166,7 @@ function alterarFornecedor(fornecedor) {
         body: JSON.stringify(fornecedor)
     };
 
-    fetch(url + "/" + fornecedor.id, params)
+    fetch(url + `/${fornecedor.id}`, params)
         .then((resposta) => {
             if (resposta.ok)
                 return resposta.json();
@@ -186,12 +187,12 @@ function alterarFornecedor(fornecedor) {
 }
 
 function excluirFornecedor(id) {
-    if (confirm("Deseja realmente excluir o fornecedor " + id + "?")) {
+    if (confirm(`Deseja realmente excluir o fornecedor ${id}?`)) {
         const params = {
             method: "DELETE"
         }
 
-        fetch(url + "/" + id, params)
+        fetch(url + `/${id}`, params)
             .then((resposta) => {
                 if (resposta.ok)
                     return resposta.json();

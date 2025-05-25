@@ -44,13 +44,40 @@
   ],
   "entregadores": [
     {
-      "id": "feb9"
+      "id": "1",
+      "nome": "Fabrício Santos",
+      "cpf": "111.111.111-11",
+      "cnh": "98765432191",
+      "telefone": "(18)9222-2222",
+      "veiculo": "Fiat Fiorino",
+      "ano": "2003",
+      "cidade": "Regente Feijó",
+      "uf": "SP",
+      "cep": "19015-010"
     },
     {
-      "id": "86a2"
+      "id": "2",
+      "nome": "Amanda Romuilda",
+      "cpf": "222.222.222-22",
+      "cnh": "12345678910",
+      "telefone": "(18)9222-2222",
+      "veiculo": "(18)9222-2222",
+      "ano": "(18)9222-2222",
+      "cidade": "Assis",
+      "uf": "SP",
+      "cep": "19999-010"
     },
     {
-      "id": "c4c5"
+      "id": "3",
+      "nome": "Eduardo Ramalho",
+      "cpf": "333.333.333-33",
+      "cnh": "10293847561",
+      "telefone": "(18)9222-2222",
+      "veiculo": "Honda CG 150",
+      "ano": "2014",
+      "cidade": "São José do Rio Preto",
+      "uf": "SP",
+      "cep": "19111-111"
     }
   ],
   "fornecedores": [
