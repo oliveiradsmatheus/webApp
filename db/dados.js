@@ -18,7 +18,7 @@
       "id": "1",
       "nome": "Lucas Sotocorno Viera",
       "cpf": "111.111.111-11",
-      "telefone": "(18)9222-2222",
+      "telefone": "(18)91111-1111",
       "cidade": "Regente Feijó",
       "uf": "SP",
       "cep": "19015-010"
@@ -27,7 +27,7 @@
       "id": "2",
       "nome": "Matheus Oliveira da Silva",
       "cpf": "222.222.222-22",
-      "telefone": "(18)9525-5958",
+      "telefone": "(18)92222-2222",
       "cidade": "Presidente Prudente",
       "uf": "SP",
       "cep": "19045-410"
@@ -35,8 +35,8 @@
     {
       "id": "4",
       "nome": "Márcia Zulmira Oliveira",
-      "cpf": "123.456.789-19",
-      "telefone": "(18)8888-8888",
+      "cpf": "333.333.333-33",
+      "telefone": "(18)93333-3333",
       "cidade": "Presidente Prudente",
       "uf": "SP",
       "cep": "19570-000"
