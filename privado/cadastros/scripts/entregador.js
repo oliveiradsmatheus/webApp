@@ -57,9 +57,9 @@ function mostrarTabelaEntregadores() {
         tabela.className = "table table-striped table-hover border mt-3";
         const cabecalho = document.createElement("thead");
         const corpo = document.createElement("tbody");
+        corpo.id = "corpo";
         cabecalho.innerHTML = `
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CPF</th>
@@ -74,33 +74,55 @@ function mostrarTabelaEntregadores() {
             </tr>
         `
         tabela.appendChild(cabecalho);
-        let i = 1;
         for (let entregador of listaDeEntregadores) {
-            const linha = document.createElement("tr");
-            linha.id = entregador.id;
-            linha.innerHTML = `
-                <th scope="row">${i++}</th>
-                <td>${entregador.id}</td>
-                <td>${entregador.nome}</td>
-                <td>${entregador.cpf}</td>
-                <td>${entregador.cnh}</td>
-                <td>${entregador.telefone}</td>
-                <td>${entregador.veiculo}</td>
-                <td>${entregador.ano}</td>
-                <td>${entregador.cidade}</td>
-                <td>${entregador.uf}</td>
-                <td>${entregador.cep}</td>
-                <td>
-                    <button type="button" class="btn btn-warning" onclick="alterarForm('${entregador.id}')"><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" class="btn btn-danger" onclick="excluirEntregador('${entregador.id}')"><i class="bi bi-trash"></i></button>
-                </td>
-            `;
+            const linha = adicionarLinha(entregador);
             corpo.appendChild(linha);
         }
         tabela.appendChild(corpo);
         divTabela.appendChild(tabela);
     }
 
+}
+
+function adicionarLinha(entregador) {
+    const linha = document.createElement('tr');
+    linha.id = entregador.id;
+    linha.innerHTML = `
+        <td>${entregador.id}</td>
+        <td>${entregador.nome}</td>
+        <td>${entregador.cpf}</td>
+        <td>${entregador.cnh}</td>
+        <td>${entregador.telefone}</td>
+        <td>${entregador.veiculo}</td>
+        <td>${entregador.ano}</td>
+        <td>${entregador.cidade}</td>
+        <td>${entregador.uf}</td>
+        <td>${entregador.cep}</td>
+        <td>
+            <button type="button" class="btn btn-warning" onclick="alterarForm('${entregador.id}')"><i class="bi bi-pencil-square"></i></button>
+            <button type="button" class="btn btn-danger" onclick="excluirEntregador('${entregador.id}')"><i class="bi bi-trash"></i></button>
+        </td>
+    `;
+    return linha;
+}
+
+function alterarLinha(linha, entregador) {
+    linha.innerHTML = `
+        <td>${entregador.id}</td>
+        <td>${entregador.nome}</td>
+        <td>${entregador.cpf}</td>
+        <td>${entregador.cnh}</td>
+        <td>${entregador.telefone}</td>
+        <td>${entregador.veiculo}</td>
+        <td>${entregador.ano}</td>
+        <td>${entregador.cidade}</td>
+        <td>${entregador.uf}</td>
+        <td>${entregador.cep}</td>
+        <td>
+            <button type="button" class="btn btn-warning" onclick="alterarForm('${entregador.id}')"><i class="bi bi-pencil-square"></i></button>
+            <button type="button" class="btn btn-danger" onclick="excluirEntregador('${entregador.id}')"><i class="bi bi-trash"></i></button>
+        </td>
+    `;
 }
 
 function alterarForm(id) {
@@ -112,8 +134,8 @@ function alterarForm(id) {
             document.getElementById("cpf").disabled = true;
             document.getElementById("cnh").value = entregador.cnh;
             document.getElementById("telefone").value = entregador.telefone;
-            document.getElementById("veiculo").value = entregador.telefone;
-            document.getElementById("ano").value = entregador.telefone;
+            document.getElementById("veiculo").value = entregador.veiculo;
+            document.getElementById("ano").value = entregador.ano;
             document.getElementById("cidade").value = entregador.cidade;
             document.getElementById("uf").value = entregador.uf;
             document.getElementById("cep").value = entregador.cep;
@@ -121,7 +143,7 @@ function alterarForm(id) {
             botaoCadastro.innerHTML = "Alterar";
             idAlt = id;
         }
-    })
+    });
 }
 
 function carregarEntregadores() {
@@ -141,8 +163,8 @@ function carregarEntregadores() {
             mostrarTabelaEntregadores();
         })
         .catch((erro) => {
-            alert("Erro ao carregar entregadores!");
-        })
+            alert("Erro ao carregar entregadores: " + erro);
+        });
 }
 
 function gravarEntregador(entregador) {
@@ -160,13 +182,15 @@ function gravarEntregador(entregador) {
                 return resposta.json();
         })
         .then((resultado) => {
-            console.log(resultado);
+            alert(`Entregador gravado com sucesso! ID: ${resultado.id}`);
             listaDeEntregadores.push(entregador);
             id++;
-            mostrarTabelaEntregadores();
+            const corpo = document.getElementById("corpo");
+            const linha = adicionarLinha(entregador);
+            corpo.appendChild(linha);
         })
         .catch((erro) => {
-            alert("Erro ao gravar entregador!");
+            alert("Erro ao gravar entregador: " + erro);
         });
 }
 
@@ -179,23 +203,24 @@ function alterarEntregador(entregador) {
         body: JSON.stringify(entregador)
     }
 
-    fetch(url + `/${entregador.id}`, params)
+    fetch(`${url}/${entregador.id}`, params)
         .then((resposta) => {
             if (resposta.ok)
                 return resposta.json();
         })
         .then((resultado) => {
-            console.log(resultado);
+            alert(`Entregador alterado com sucesso! ID: ${entregador.id}`);
             listaDeEntregadores = listaDeEntregadores.map((ent) => {
                 return ent.id === entregador.id ? entregador : ent;
             });
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cpf").disabled = false;
-            mostrarTabelaEntregadores();
+            const linha = document.getElementById(entregador.id);
+            alterarLinha(linha, entregador);
         })
         .catch((erro) => {
-            alert("Erro ao alterar entregador!");
+            alert("Erro ao atualizar entregador!" + erro);
         });
 }
 
@@ -205,13 +230,13 @@ function excluirEntregador(id) {
             method: "DELETE"
         }
 
-        fetch(url + `/${id}`, params)
+        fetch(`${url}/${id}`, params)
             .then((resposta) => {
                 if (resposta.ok)
                     return resposta.json();
             })
             .then((resultado) => {
-                console.log(resultado);
+                alert(`Entregador removido com sucesso! ID: ${id}`);
                 listaDeEntregadores = listaDeEntregadores.filter((entregador) => {
                     return entregador.id !== id;
                 });
@@ -219,7 +244,7 @@ function excluirEntregador(id) {
                 mostrarTabelaEntregadores();
             })
             .catch((erro) => {
-                alert("Erro ao excluir entregador!");
+                alert("Erro ao excluir entregador: " + erro);
             });
     }
 }

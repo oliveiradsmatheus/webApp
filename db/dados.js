@@ -16,7 +16,7 @@
   "clientes": [
     {
       "id": "1",
-      "nome": "Lucas Sotocorno Viera",
+      "nome": "Lucas Sotocorno",
       "cpf": "111.111.111-11",
       "telefone": "(18)91111-1111",
       "cidade": "Regente Feijó",
@@ -40,6 +40,15 @@
       "cidade": "Presidente Prudente",
       "uf": "SP",
       "cep": "19570-000"
+    },
+    {
+      "id": "6",
+      "nome": "Marcelo Silva",
+      "cpf": "555.555.555-55",
+      "telefone": "(18)95555-5555",
+      "cidade": "Fortaleza",
+      "uf": "CE",
+      "cep": "19555-555"
     }
   ],
   "entregadores": [
@@ -57,12 +66,12 @@
     },
     {
       "id": "2",
-      "nome": "Amanda Romuilda",
+      "nome": "José Maria",
       "cpf": "222.222.222-22",
       "cnh": "12345678910",
       "telefone": "(18)9222-2222",
-      "veiculo": "(18)9222-2222",
-      "ano": "(18)9222-2222",
+      "veiculo": "Ford F1000",
+      "ano": "1999",
       "cidade": "Assis",
       "uf": "SP",
       "cep": "19999-010"

@@ -54,9 +54,9 @@ function mostrarTabelaFornecedores() {
         tabela.className = "table table-striped table-hover border mt-3";
         const cabecalho = document.createElement("thead");
         const corpo = document.createElement("tbody");
+        corpo.id = "corpo";
         cabecalho.innerHTML = `
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CNPJ</th>
@@ -67,29 +67,48 @@ function mostrarTabelaFornecedores() {
             </tr>
         `;
         tabela.appendChild(cabecalho);
-        let i = 1;
         for (let fornecedor of listaDeFornecedores) {
-            const linha = document.createElement("tr");
-            linha.id = fornecedor.id;
-            linha.innerHTML = `
-                <th scope="row">${i++}</th>
-                <td>${fornecedor.id}</td>
-                <td>${fornecedor.nome}</td>
-                <td>${fornecedor.cnpj}</td>
-                <td>${fornecedor.telefone}</td>
-                <td>${fornecedor.cidade}</td>
-                <td>${fornecedor.uf}</td>
-                <td>${fornecedor.cep}</td>
-                <td>
-                    <button type="button" class="btn btn-warning" onclick="alterarForm('${fornecedor.id}')"><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" class="btn btn-danger" onclick="excluirFornecedor('${fornecedor.id}')"><i class="bi bi-trash"></i></button>
-                </td>
-            `;
+            const linha = adicionarLinha(fornecedor);
             corpo.appendChild(linha);
         }
         tabela.appendChild(corpo);
         divTabela.appendChild(tabela);
     }
+}
+
+function adicionarLinha(fornecedor) {
+    const linha = document.createElement('tr');
+    linha.id = fornecedor.id;
+    linha.innerHTML = `
+        <td>${fornecedor.id}</td>
+        <td>${fornecedor.nome}</td>
+        <td>${fornecedor.cnpj}</td>
+        <td>${fornecedor.telefone}</td>
+        <td>${fornecedor.cidade}</td>
+        <td>${fornecedor.uf}</td>
+        <td>${fornecedor.cep}</td>
+        <td>
+            <button type="button" class="btn btn-warning" onclick="alterarForm('${fornecedor.id}')"><i class="bi bi-pencil-square"></i></button>
+            <button type="button" class="btn btn-danger" onclick="excluirFornecedor('${fornecedor.id}')"><i class="bi bi-trash"></i></button>
+        </td>
+    `;
+    return linha;
+}
+
+function alterarLinha(linha, fornecedor) {
+    linha.innerHTML = `
+        <td>${fornecedor.id}</td>
+        <td>${fornecedor.nome}</td>
+        <td>${fornecedor.cnpj}</td>
+        <td>${fornecedor.telefone}</td>
+        <td>${fornecedor.cidade}</td>
+        <td>${fornecedor.uf}</td>
+        <td>${fornecedor.cep}</td>
+        <td>
+            <button type="button" class="btn btn-warning" onclick="alterarForm('${fornecedor.id}')"><i class="bi bi-pencil-square"></i></button>
+            <button type="button" class="btn btn-danger" onclick="excluirFornecedor('${fornecedor.id}')"><i class="bi bi-trash"></i></button>
+        </td>
+    `;
 }
 
 function alterarForm(id) {
@@ -128,7 +147,7 @@ function carregarFornecedores() {
         })
         .catch((erro) => {
             console.log(erro);
-            alert("Erro ao carregar fornecedores!");
+            alert("Erro ao carregar fornecedores! " + erro);
         })
 }
 
@@ -147,13 +166,15 @@ function gravarFornecedor(fornecedor) {
                 return resposta.json();
         })
         .then((resultado) => {
-            console.log(resultado);
+            alert(`Fornecedor gravado com sucesso! ID: ${resultado.id}`);
             listaDeFornecedores.push(fornecedor);
             id++;
-            mostrarTabelaFornecedores();
+            const corpo = document.getElementById("corpo");
+            const linha = adicionarLinha(fornecedor);
+            corpo.appendChild(linha);
         })
         .catch((erro) => {
-            alert("Erro ao gravar fornecedor!");
+            alert("Erro ao gravar fornecedor! " + erro);
         });
 }
 
@@ -166,23 +187,24 @@ function alterarFornecedor(fornecedor) {
         body: JSON.stringify(fornecedor)
     };
 
-    fetch(url + `/${fornecedor.id}`, params)
+    fetch(`${url}/${fornecedor.id}`, params)
         .then((resposta) => {
             if (resposta.ok)
                 return resposta.json();
         })
         .then((resultado) => {
-            console.log(resultado);
+            alert(`Fornecedor alterado com sucesso! ID: ${fornecedor.id}`);
             listaDeFornecedores = listaDeFornecedores.map((forn) => {
                 return forn.id === fornecedor.id ? fornecedor : forn;
             });
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cnpj").disabled = false;
-            mostrarTabelaFornecedores();
+            const linha = document.getElementById(fornecedor.id);
+            alterarLinha(linha, fornecedor);
         })
         .catch((erro) => {
-            alert("Erro ao gravar fornecedor!");
+            alert("Erro ao atualizar fornecedor! " + erro);
         });
 }
 
@@ -192,21 +214,20 @@ function excluirFornecedor(id) {
             method: "DELETE"
         }
 
-        fetch(url + `/${id}`, params)
+        fetch(`${url}/${id}`, params)
             .then((resposta) => {
                 if (resposta.ok)
                     return resposta.json();
             })
             .then((resultado) => {
-                console.log(resultado);
+                alert(`Fornecedor removido com sucesso! ID: ${id}`);
                 listaDeFornecedores = listaDeFornecedores.filter((fornecedor) => {
                     return fornecedor.id !== id;
                 });
                 document.getElementById(id).remove();
-                mostrarTabelaFornecedores();
             })
             .catch((erro) => {
-                alert("Erro ao excluir fornecedor!");
+                alert("Erro ao excluir fornecedor! " + erro);
             });
     }
 }

@@ -54,9 +54,9 @@ function mostrarTabelaClientes() {
         tabela.className = "table table-striped table-hover border mt-3";
         const cabecalho = document.createElement("thead");
         const corpo = document.createElement("tbody");
+        corpo.id = "corpo";
         cabecalho.innerHTML = `
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CPF</th>
@@ -68,28 +68,48 @@ function mostrarTabelaClientes() {
             </tr>
         `;
         tabela.appendChild(cabecalho);
-        for (let i = 0; i < listaDeClientes.length; i++) {
-            const linha = document.createElement('tr');
-            linha.id = listaDeClientes[i].id;
-            linha.innerHTML = `
-                <th scope="row">${i + 1}</th>
-                <td>${listaDeClientes[i].id}</td>
-                <td>${listaDeClientes[i].nome}</td>
-                <td>${listaDeClientes[i].cpf}</td>
-                <td>${listaDeClientes[i].telefone}</td>
-                <td>${listaDeClientes[i].cidade}</td>
-                <td>${listaDeClientes[i].uf}</td>
-                <td>${listaDeClientes[i].cep}</td>
-                <td>
-                    <button type="button" class="btn btn-warning" onclick="alterarForm('${listaDeClientes[i].id}')"><i class="bi bi-pencil-square"></i></i></button>
-                    <button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}')"><i class="bi bi-trash"></i></i></button>
-                </td>
-            `
+        for (let cliente of listaDeClientes) {
+            const linha = adicionarLinha(cliente);
             corpo.appendChild(linha);
         }
         tabela.appendChild(corpo);
         divTabela.appendChild(tabela);
     }
+}
+
+function adicionarLinha(cliente) {
+    const linha = document.createElement('tr');
+    linha.id = cliente.id;
+    linha.innerHTML = `
+        <td>${cliente.id}</td>
+        <td>${cliente.nome}</td>
+        <td>${cliente.cpf}</td>
+        <td>${cliente.telefone}</td>
+        <td>${cliente.cidade}</td>
+        <td>${cliente.uf}</td>
+        <td>${cliente.cep}</td>
+        <td>
+            <button type="button" class="btn btn-warning" onclick="alterarForm('${cliente.id}')"><i class="bi bi-pencil-square"></i></i></button>
+            <button type="button" class="btn btn-danger" onclick="excluirCliente('${cliente.id}')"><i class="bi bi-trash"></i></i></button>
+        </td>
+    `
+    return linha;
+}
+
+function alterarLinha(linha, cliente) {
+    linha.innerHTML = `
+        <td>${cliente.id}</td>
+        <td>${cliente.nome}</td>
+        <td>${cliente.cpf}</td>
+        <td>${cliente.telefone}</td>
+        <td>${cliente.cidade}</td>
+        <td>${cliente.uf}</td>
+        <td>${cliente.cep}</td>
+        <td>
+            <button type="button" class="btn btn-warning" onclick="alterarForm('${cliente.id}')"><i class="bi bi-pencil-square"></i></i></button>
+            <button type="button" class="btn btn-danger" onclick="excluirCliente('${cliente.id}')"><i class="bi bi-trash"></i></i></button>
+        </td>
+    `
 }
 
 function alterarForm(id) {
@@ -127,7 +147,7 @@ function carregarClientes() {
             mostrarTabelaClientes();
         })
         .catch((erro) => {
-            alert("Erro ao tentar recuperar clientes!")
+            alert("Erro ao tentar recuperar clientes: " + erro);
         });
 }
 
@@ -146,13 +166,15 @@ function gravarCliente(cliente) {
                 return resposta.json();
         })
         .then((resultado) => {
-            console.log(resultado)
+            alert(`Cliente gravado com sucesso! ID: ${resultado.id}`);
             listaDeClientes.push(cliente);
             id++;
-            mostrarTabelaClientes();
+            const corpo = document.getElementById("corpo");
+            const linha = adicionarLinha(cliente);
+            corpo.appendChild(linha);
         })
         .catch((erro) => {
-            alert("Erro ao tentar gravar cliente!")
+            alert("Erro ao tentar gravar cliente! " + erro);
         });
 }
 
@@ -164,20 +186,22 @@ function alterarCliente(cliente) {
         },
         body: JSON.stringify(cliente)
     }
-    fetch(url + `/${cliente.id}`, params)
+
+    fetch(`${url}/${cliente.id}`, params)
         .then((resposta) => {
             if (resposta.ok)
                 return resposta.json();
         })
         .then((resultado) => {
-            console.log(resultado);
+            alert(`Cliente alterado com sucesso! ID: ${cliente.id}`);
             listaDeClientes = listaDeClientes.map((cli) => {
                 return cli.id === cliente.id ? cliente : cli;
             });
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cpf").disabled = false;
-            mostrarTabelaClientes();
+            const linha = document.getElementById(cliente.id);
+            alterarLinha(linha, cliente);
         })
         .catch((erro) => {
             alert("Erro ao atualizar cliente!" + erro);
@@ -190,21 +214,20 @@ function excluirCliente(id) {
             method: "DELETE"
         }
 
-        fetch(url + `/${id}`, params)
+        fetch(`${url}/${id}`, params)
             .then((resposta) => {
                 if (resposta.ok)
                     return resposta.json();
             })
             .then((resultado) => {
-                console.log(resultado);
+                alert(`Cliente removido com sucesso! ID: ${id}`);
                 listaDeClientes = listaDeClientes.filter((cliente) => {
                     return cliente.id !== id;
                 });
                 document.getElementById(id).remove();
-                mostrarTabelaClientes();
             })
             .catch((erro) => {
-                alert("Erro ao excluir cliente!");
+                alert("Erro ao excluir cliente! " + erro);
             });
     }
 }
