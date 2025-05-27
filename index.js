@@ -51,7 +51,7 @@ app.post("/login", (requisicao, resposta) => {
                 <link rel="stylesheet" href="css/login.css">
             </head>
             
-            <body class="bg-body-secondary">
+            <body class="bg-dark">
                 <div class="container shadow border bg-body-tertiary rounded my-5 p-3 w-50">
                     <h1 class="text-center text-dark">Bem-vindo</h1>
                     <div class="text-center text-dark">Faça o login</div>
