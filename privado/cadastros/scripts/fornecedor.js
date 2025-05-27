@@ -16,6 +16,7 @@ botaoLimpar.onclick = limparForm;
 function limparForm() {
     modoEdicao = false;
     formulario.reset();
+    document.getElementById("cnpj").disabled = false;
     botaoCadastro.innerHTML = "Cadastrar";
 }
 
