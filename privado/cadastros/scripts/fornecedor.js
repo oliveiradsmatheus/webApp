@@ -80,23 +80,11 @@ function mostrarTabelaFornecedores() {
 function adicionarLinha(fornecedor) {
     const linha = document.createElement('tr');
     linha.id = fornecedor.id;
-    linha.innerHTML = `
-        <td>${fornecedor.id}</td>
-        <td>${fornecedor.nome}</td>
-        <td>${fornecedor.cnpj}</td>
-        <td>${fornecedor.telefone}</td>
-        <td>${fornecedor.cidade}</td>
-        <td>${fornecedor.uf}</td>
-        <td>${fornecedor.cep}</td>
-        <td>
-            <button type="button" class="btn btn-warning" onclick="alterarForm('${fornecedor.id}')"><i class="bi bi-pencil-square"></i></button>
-            <button type="button" class="btn btn-danger" onclick="excluirFornecedor('${fornecedor.id}')"><i class="bi bi-trash"></i></button>
-        </td>
-    `;
+    editarLinha(linha, fornecedor);
     return linha;
 }
 
-function alterarLinha(linha, fornecedor) {
+function editarLinha(linha, fornecedor) {
     linha.innerHTML = `
         <td>${fornecedor.id}</td>
         <td>${fornecedor.nome}</td>
@@ -201,8 +189,7 @@ function alterarFornecedor(fornecedor) {
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cnpj").disabled = false;
-            const linha = document.getElementById(fornecedor.id);
-            alterarLinha(linha, fornecedor);
+            editarLinha(document.getElementById(fornecedor.id), fornecedor);
         })
         .catch((erro) => {
             alert("Erro ao atualizar fornecedor! " + erro);
