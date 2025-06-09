@@ -1,12 +1,12 @@
-const urlUsuario= "http://localhost:4000/usuario"; 
+const urlUsuario= "http://localhost:4000/usuarios"; 
 
 const formularioUsuario = document.getElementById("formCadUsuario"); 
 const btnCadUsr = document.getElementById("btnCadUsr");
 const btnLimparUsr = document.getElementById("btnLimparUsr");
 
-let listaDeUsuarios = []; 
+let listaDeUsuarios = [];
 
-let idUsuario = 1; 
+let idUsuario = 1;
 let idAltUsuario;
 let modoEdicaoUsuario = false;
 

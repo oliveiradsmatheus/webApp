@@ -64,20 +64,13 @@
         <div class="alert alert-primary text-center" role="alert">
             <h1>Cadastro de Categorias</h1>
         </div>
-        <form id="formCadCliente" action="#" method="POST" class="row g-3 needs-validation m-1 p-4 border"
+        <form id="formCadCategoria" method="POST" class="row g-3 needs-validation m-1 p-4 border"
               novalidate>
             <div class="col-md-4">
                 <label for="nome" class="form-label">ID</label>
                 <input type="text" class="form-control" id="id" value="0" disabled>
             </div>
-            <div>
-                <label for="id" class="form-label">ID</label>
-                <input type="text" class="form-control" id="id" placeholder="ID da categoria" disabled>
-                <div class="invalid-feedback">
-                    Por favor, informe o nome da categoria.
-                </div>
-            </div>
-            <div>
+            <div class="col-md-8">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" placeholder="Informe o nome da categoria" required>
                 <div class="invalid-feedback">
@@ -85,7 +78,8 @@
                 </div>
             </div>
             <div class="col-12 text-center">
-                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                <button class="btn btn-primary" id="botaoCadastroCategoria" type="submit">Cadastrar</button>
+                <button class="btn btn-danger" id="botaoLimparCategoria" type="reset">Limpar Formulário</button>
                 <a class="btn btn-secondary" type="button" href="../../menu.html">Voltar</a>
             </div>
         </form>
