@@ -32,14 +32,28 @@ app.use(express.urlencoded({extended: true})); // midware
 // compartilhando publicamente os arquivos existentes na pasta "publico"
 app.use(express.static("publico")); // assets ou conteúdo estático
 
-app.post("/login", (requisicao, resposta) => {
+app.post("/login", async (requisicao, resposta) => {
     // desestruturação javascript
     const {usuario, senha} = requisicao.body;
-    if (1 || usuario === "admin" && senha === "admin") {
-        requisicao.session.autenticado = true;
-        resposta.redirect("/menu.html");
-    } else {
-        let conteudo = `
+    const url = "http://localhost:4000/usuarios";
+    const params = {
+        method: "GET"
+    }
+    let dados = null;
+
+    try {
+        const resp = await fetch(url);
+        const usuarios = await resp.json();
+
+        for (let us of usuarios)
+            if (us.nome === usuario)
+                dados = us;
+
+        if (dados !== null && usuario === dados.nome && senha === dados.senha) {
+            requisicao.session.autenticado = true;
+            resposta.redirect("/menu.html");
+        } else {
+            let conteudo = `
             <!DOCTYPE html>
             <html lang="pt-br">
             
@@ -79,8 +93,12 @@ app.post("/login", (requisicao, resposta) => {
             
             </html>
         `;
-        resposta.send(conteudo);
-        resposta.end();
+            resposta.send(conteudo);
+            //resposta.end();
+        }
+    } catch (erro) {
+        console.error("Erro no processo de login:", erro);
+        resposta.status(500).send("Ocorreu um erro no servidor ao tentar fazer login.");
     }
 });
 
