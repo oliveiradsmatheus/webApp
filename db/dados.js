@@ -15,6 +15,10 @@
     {
       "id": "4",
       "nome": "Eletrônicos"
+    },
+    {
+      "id": "5",
+      "nome": "Brinquedos"
     }
   ],
   "clientes": [
@@ -152,6 +156,16 @@
       "imagem": "https://comper.vteximg.com.br/arquivos/ids/203942-1000-1000/1077368-PACU-1.jpg?v=637769348719000000",
       "dataFabicacao": "2025-05-01",
       "dataValidade": "2025-06-30"
+    },
+    {
+      "id": "5",
+      "nome": "Calculadora",
+      "descricao": "Calculadora científica",
+      "quantidade": "50",
+      "preco": "50",
+      "imagem": "https://img.kalunga.com.br/fotosdeprodutos/218820z.jpg",
+      "dataFabicacao": "2025-06-12",
+      "dataValidade": "2025-06-27"
     }
   ],
   "usuarios": [

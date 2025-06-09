@@ -84,6 +84,7 @@ app.post("/login", async (requisicao, resposta) => {
                                         ninguém.</small>
                                 </div>
                                 <button type="submit" class="w-100 btn btn-primary mt-4">Entrar</button>
+                                <a class="w-100 btn btn-secondary mt-2" type="button" href="index.html">Voltar</a>
                                 <div class="mt-3 alert alert-danger">Usuário ou senha incorretos!</div>
                             </form>
                         </div>
