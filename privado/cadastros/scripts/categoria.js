@@ -21,7 +21,7 @@ function limparFormCategoria() {
 
 function manipularSubmissaoCategoria(evento) {
     if (formularioCategoria.checkValidity()) {
-        const nome = document.getElementById("nomeCategoria").value;
+        const nome = document.getElementById("nome").value;
         
         const categoria = {id: idCategoria.toString(), nome};
         
@@ -43,8 +43,8 @@ function alterarFormCategoria(id) {
     const categoriaParaAlterar = listaDeCategorias.find(categoria => categoria.id === id);
 
     if (categoriaParaAlterar) {
-        document.getElementById("idCategoria").value = categoriaParaAlterar.id;
-        document.getElementById("nomeCategoria").value = categoriaParaAlterar.nome;
+        document.getElementById("id").value = categoriaParaAlterar.id;
+        document.getElementById("nome").value = categoriaParaAlterar.nome;
         
         modoEdicaoCategoria = true;
         botaoCadastroCategoria.innerText = "Alterar";
@@ -53,7 +53,7 @@ function alterarFormCategoria(id) {
 }
 
 function atualizarTabelaCategorias() {
-    const divTabela = document.getElementById("tabelaCategorias");
+    const divTabela = document.getElementById("tabela");
     divTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
 
     if (listaDeCategorias.length === 0) {
