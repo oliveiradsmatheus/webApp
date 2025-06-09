@@ -202,7 +202,7 @@ function alterarEntregador(entregador) {
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cpf").disabled = false;
-            editar(document.getElementById(entregador.id), entregador);
+            editarLinha(document.getElementById(entregador.id), entregador);
         })
         .catch((erro) => {
             alert("Erro ao atualizar entregador!" + erro);
