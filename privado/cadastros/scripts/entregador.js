@@ -88,26 +88,11 @@ function mostrarTabelaEntregadores() {
 function adicionarLinha(entregador) {
     const linha = document.createElement('tr');
     linha.id = entregador.id;
-    linha.innerHTML = `
-        <td>${entregador.id}</td>
-        <td>${entregador.nome}</td>
-        <td>${entregador.cpf}</td>
-        <td>${entregador.cnh}</td>
-        <td>${entregador.telefone}</td>
-        <td>${entregador.veiculo}</td>
-        <td>${entregador.ano}</td>
-        <td>${entregador.cidade}</td>
-        <td>${entregador.uf}</td>
-        <td>${entregador.cep}</td>
-        <td>
-            <button type="button" class="btn btn-warning" onclick="alterarForm('${entregador.id}')"><i class="bi bi-pencil-square"></i></button>
-            <button type="button" class="btn btn-danger" onclick="excluirEntregador('${entregador.id}')"><i class="bi bi-trash"></i></button>
-        </td>
-    `;
+    editarLinha(linha, entregador);
     return linha;
 }
 
-function alterarLinha(linha, entregador) {
+function editarLinha(linha, entregador) {
     linha.innerHTML = `
         <td>${entregador.id}</td>
         <td>${entregador.nome}</td>
@@ -217,8 +202,7 @@ function alterarEntregador(entregador) {
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cpf").disabled = false;
-            const linha = document.getElementById(entregador.id);
-            alterarLinha(linha, entregador);
+            editar(document.getElementById(entregador.id), entregador);
         })
         .catch((erro) => {
             alert("Erro ao atualizar entregador!" + erro);

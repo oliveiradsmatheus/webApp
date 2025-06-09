@@ -81,23 +81,11 @@ function mostrarTabelaClientes() {
 function adicionarLinha(cliente) {
     const linha = document.createElement('tr');
     linha.id = cliente.id;
-    linha.innerHTML = `
-        <td>${cliente.id}</td>
-        <td>${cliente.nome}</td>
-        <td>${cliente.cpf}</td>
-        <td>${cliente.telefone}</td>
-        <td>${cliente.cidade}</td>
-        <td>${cliente.uf}</td>
-        <td>${cliente.cep}</td>
-        <td>
-            <button type="button" class="btn btn-warning" onclick="alterarForm('${cliente.id}')"><i class="bi bi-pencil-square"></i></i></button>
-            <button type="button" class="btn btn-danger" onclick="excluirCliente('${cliente.id}')"><i class="bi bi-trash"></i></i></button>
-        </td>
-    `
+    editarLinha(linha, cliente);
     return linha;
 }
 
-function alterarLinha(linha, cliente) {
+function editarLinha(linha, cliente) {
     linha.innerHTML = `
         <td>${cliente.id}</td>
         <td>${cliente.nome}</td>
@@ -201,8 +189,7 @@ function alterarCliente(cliente) {
             modoEdicao = false;
             botaoCadastro.innerText = "Cadastrar";
             document.getElementById("cpf").disabled = false;
-            const linha = document.getElementById(cliente.id);
-            alterarLinha(linha, cliente);
+            editarLinha(document.getElementById(cliente.id), cliente);
         })
         .catch((erro) => {
             alert("Erro ao atualizar cliente!" + erro);
@@ -225,7 +212,7 @@ function excluirCliente(id) {
                 listaDeClientes = listaDeClientes.filter((cliente) => {
                     return cliente.id !== id;
                 });
-                document.getElementById(id).remove();
+                document.getElementById(id)?.remove();
             })
             .catch((erro) => {
                 alert("Erro ao excluir cliente! " + erro);
