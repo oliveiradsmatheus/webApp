@@ -124,21 +124,48 @@
   ],
   "produtos": [
     {
-      "id": "edac"
+      "id": "1",
+      "nome": "Peneira",
+      "descricao": "Peneira de obra",
+      "quantidade": "1",
+      "preco": "50",
+      "imagem": "https://elastobor.vtexassets.com/arquivos/ids/318557/PENEIRA-PARA-ARROZ-NOVE54-ARO-MADEIRA-55CM.jpg?v=638829928652800000",
+      "dataFabicacao": "2024-05-31",
+      "dataValidade": "2026-12-31"
     },
     {
-      "id": "2267"
+      "id": "3",
+      "nome": "Linguiça Toscana",
+      "descricao": "Linguiça Seara",
+      "quantidade": "25",
+      "preco": "20.00",
+      "imagem": "https://i0.wp.com/www.cofril.com.br/wp-content/uploads/2013/09/2015-09-23_Emb-14-Pernil-Especial-Churrasco_001-Editar1.jpg?fit=800%2C800&ssl=1",
+      "dataFabicacao": "2025-06-17",
+      "dataValidade": "2025-07-19"
     },
     {
-      "id": "034a"
+      "id": "4",
+      "nome": "Pacu",
+      "descricao": "Pacu fresco",
+      "quantidade": "10",
+      "preco": "50",
+      "imagem": "https://comper.vteximg.com.br/arquivos/ids/203942-1000-1000/1077368-PACU-1.jpg?v=637769348719000000",
+      "dataFabicacao": "2025-05-01",
+      "dataValidade": "2025-06-30"
     }
   ],
   "usuarios": [
     {
-      "id": "5c6b"
+      "id": "1",
+      "nome": "Lucas Sotocorno",
+      "email": "lucassotocorno@email.com",
+      "senha": "lucas"
     },
     {
-      "id": "2982"
+      "id": "2",
+      "nome": "Matheus Oliveira",
+      "email": "matheus@email.com",
+      "senha": "senha"
     }
   ]
 }

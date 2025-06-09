@@ -78,9 +78,9 @@
         <div class="invalid-feedback">Informe o preço.</div>
       </div>
       <div class="col-md-4">
-        <label for="fabricanteProduto" class="form-label">Fabricante</label>
-        <input type="text" class="form-control" id="fabricanteProduto" required />
-        <div class="invalid-feedback">Informe o fabricante.</div>
+        <label for="imagemProduto" class="form-label">Imagem (Link)</label>
+        <input type="text" class="form-control" id="imagemProduto" required />
+        <div class="invalid-feedback">Informe o link da imagem.</div>
       </div>
       <div class="col-md-6">
         <label for="dataFabricacaoProduto" class="form-label">Data de Fabricação</label>
@@ -94,14 +94,15 @@
       </div>
       <div class="col-12 text-center">
         <button type="submit" class="btn btn-primary" id="btnCadProd">Cadastrar</button>
-        <button type="reset" class="btn btn-secondary" id="btnLimparProd">Limpar</button>
+        <button class="btn btn-danger" id="btnLimparProd" type="reset">Limpar Formulário</button>
+        <a class="btn btn-secondary" type="button" href="../../menu.html">Voltar</a>
       </div>
     </form>
     <div class="my-4" id="tabelaProdutos"></div>
   </div>
 
   <script src="/scripts/bootstrap.bundle.min.js"></script>
-  <script src="/scripts/produto.js"></script>
+  <script src="scripts/produto.js"></script>
 </body>
 
 </html>

@@ -21,14 +21,14 @@ function limparFormProduto() {
 
 function manipularSubmissaoProduto(evento) {
     if (formularioProduto.checkValidity()) {
-        const nome = document.getElementById("nome").value;
-        const descricao = document.getElementById("descricao").value;
-        const quantidade = document.getElementById("quantidade").value;
-        const preco = document.getElementById("preco").value;
-        const imagem = document.getElementById("imagem").value;
-        const dataFabicacao = document.getElementById("dataFabricacao").value;
-        const dataValidade = document.getElementById("dataValidade").value;
-        const produtos = {id: idCategoria.toString(), nome,descricao,quantidade,preco,imagem,dataFabicacao,dataValidade};
+        const nome = document.getElementById("nomeProduto").value;
+        const descricao = document.getElementById("descricaoProduto").value;
+        const quantidade = document.getElementById("quantidadeProduto").value;
+        const preco = document.getElementById("precoProduto").value;
+        const imagem = document.getElementById("imagemProduto").value;
+        const dataFabicacao = document.getElementById("dataFabricacaoProduto").value;
+        const dataValidade = document.getElementById("dataValidadeProduto").value;
+        const produtos = {id: idProduto.toString(), nome,descricao,quantidade,preco,imagem,dataFabicacao,dataValidade};
         
         if (modoEdicaoProduto) {
             produtos.id = idAltProduto.toString();
@@ -53,7 +53,7 @@ function alterarFormProduto(id) {
         document.getElementById("descricaoProduto").value = produtoAlt.descricao;
         document.getElementById("quantidadeProduto").value = produtoAlt.quantidade;
         document.getElementById("precoProduto").value = produtoAlt.preco;
-        document.getElementById("fabricanteProduto").value = produtoAlt.fabricante;
+        document.getElementById("imagemProduto").value = produtoAlt.imagem;
         document.getElementById("dataFabricacaoProduto").value = produtoAlt.dataFabicacao;
         document.getElementById("dataValidadeProduto").value = produtoAlt.dataValidade;
         
@@ -67,7 +67,7 @@ function atualizarTabelaProdutos() {
     const divTabela = document.getElementById("tabelaProdutos");
     divTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
 
-    if (listaDeCategorias.length === 0) {
+    if (listaDeProdutos.length === 0) {
         divTabela.innerHTML = '<p class="m-2 text-center alert alert-info" role="alert">Não há produtos cadastradas</p>';
     } else {
         const titulo = document.createElement("p");
@@ -84,12 +84,12 @@ function atualizarTabelaProdutos() {
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Descricao</th>
+                <th scope="col">Descrição</th>
                 <th scope="col">Quantidade</th>
-                <th scope="col">Preco</th>
-                <th scope="col">Fabricante</th>
-                <th scope="col">DataFabricacao</th>
-                <th scope="col">DataValidade</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Imagem</th>
+                <th scope="col">Data de Fabricação</th>
+                <th scope="col">Data Validade</th>
                 <th scope="col">Ações</th>
             </tr>
         `;
@@ -97,14 +97,14 @@ function atualizarTabelaProdutos() {
 
         for (let produto of listaDeProdutos) {
             const linha = document.createElement('tr');
-            linha.id = categoria.id;
+            linha.id = produto.id;
             linha.innerHTML = `
                 <td>${produto.id}</td>
                 <td>${produto.nome}</td>
                 <td>${produto.descricao}</td>
                 <td>${produto.quantidade}</td>
                 <td>${produto.preco}</td>
-                <td>${produto.fabricante}</td>
+                <td><img width="50px" src="${produto.imagem}"/></td>
                 <td>${produto.dataFabicacao}</td>
                 <td>${produto.dataValidade}</td>
                 <td>

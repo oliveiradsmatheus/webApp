@@ -1,5 +1,5 @@
 function carregarProdutos() {
-    const url = "https://fakestoreapi.com/products";
+    const url = "http://localhost:4000/produtos";
     const params = {
         method: "GET"
     }
@@ -16,11 +16,11 @@ function carregarProdutos() {
                 card.innerHTML = `
                     <div class="card m-2 shadow custom-card">
                         <div class="image-container">
-                            <img src="${produto.image}" class="card-img-top" alt="${produto.title}">
+                            <img src="${produto.imagem}" class="card-img-top" alt="${produto.nome}">
                         </div>
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">${produto.title}</h5>
-                            <p class="card-text price-text">R$ ${produto.price}</p>
+                            <h5 class="card-title">${produto.nome}</h5>
+                            <p class="card-text price-text">R$ ${parseFloat(produto.preco).toFixed(2)}</p>
                             <a href="#" class="btn btn-primary mt-auto">Veja mais detalhes!</a>
                         </div>
                     </div>
