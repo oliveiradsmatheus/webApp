@@ -21,9 +21,9 @@ function limparFormUsuario() {
 
 function manipularSubmissaoUsuario(evento) {
     if (formularioUsuario.checkValidity()) {
-        const nome = document.getElementById("nome").value;
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
+        const nome = document.getElementById("nomeUsuario").value;
+        const email = document.getElementById("emailUsuario").value;
+        const senha = document.getElementById("senhaUsuario").value;
         const usuarios = {id: idUsuario.toString(), nome,email,senha};
         
         if (modoEdicaoUsuario) {

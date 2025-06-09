@@ -157,7 +157,7 @@
   "usuarios": [
     {
       "id": "1",
-      "nome": "Lucas Sotocorno",
+      "nome": "Lucas Sotocorno Vieira",
       "email": "lucassotocorno@email.com",
       "senha": "lucas"
     },
@@ -166,6 +166,12 @@
       "nome": "Matheus Oliveira",
       "email": "matheus@email.com",
       "senha": "senha"
+    },
+    {
+      "id": "3",
+      "nome": "Matheus Amaral",
+      "email": "amaral@email.com",
+      "senha": "1234"
     }
   ]
 }
