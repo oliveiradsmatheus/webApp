@@ -14,12 +14,14 @@ function carregarProdutos() {
             for (let produto of produtos) {
                 const card = document.createElement("div");
                 card.innerHTML = `
-                    <div class="card m-2 shadow" style="width: 18rem;">
-                        <img width="200px" height="300px" src="${produto.image}" class="card-img-top" alt="...">
-                        <div class="card-body">
+                    <div class="card m-2 shadow custom-card">
+                        <div class="image-container">
+                            <img src="${produto.image}" class="card-img-top" alt="${produto.title}">
+                        </div>
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">${produto.title}</h5>
-                            <p class="card-text">R$ ${produto.price}</p>
-                            <a href="#" class="btn btn-primary">Veja mais detalhes!</a>
+                            <p class="card-text price-text">R$ ${produto.price}</p>
+                            <a href="#" class="btn btn-primary mt-auto">Veja mais detalhes!</a>
                         </div>
                     </div>
                 `

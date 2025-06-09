@@ -5,3 +5,52 @@
     align-items: center;
     justify-content: center;
 }
+
+.custom-card {
+    width: 18rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-card .image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-card .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.custom-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.custom-card .card-title {
+    font-size: 1.25rem;
+    min-height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.custom-card .price-text {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.custom-card .btn {
+    margin-top: auto;
+}

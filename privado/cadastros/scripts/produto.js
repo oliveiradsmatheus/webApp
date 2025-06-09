@@ -25,10 +25,10 @@ function manipularSubmissaoProduto(evento) {
         const descricao = document.getElementById("descricao").value;
         const quantidade = document.getElementById("quantidade").value;
         const preco = document.getElementById("preco").value;
-        const fabricante = document.getElementById("fabricante").value;
+        const imagem = document.getElementById("imagem").value;
         const dataFabicacao = document.getElementById("dataFabricacao").value;
         const dataValidade = document.getElementById("dataValidade").value;
-        const produtos = {id: idCategoria.toString(), nome,descricao,quantidade,preco,fabricante,dataFabicacao,dataValidade};
+        const produtos = {id: idCategoria.toString(), nome,descricao,quantidade,preco,imagem,dataFabicacao,dataValidade};
         
         if (modoEdicaoProduto) {
             produtos.id = idAltProduto.toString();
