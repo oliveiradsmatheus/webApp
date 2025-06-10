@@ -95,7 +95,7 @@ app.post("/login", async (requisicao, resposta) => {
             </html>
         `;
             resposta.send(conteudo);
-            //resposta.end();
+            resposta.end();
         }
     } catch (erro) {
         console.error("Erro no processo de login:", erro);
